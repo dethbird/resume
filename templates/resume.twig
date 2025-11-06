@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ resume.person.name }} — {{ resume.person.title }}</title>
+  <style>
+    :root { --ink:#222; --muted:#666; --accent:#0b74de; }
+    * { box-sizing: border-box; }
+    body { margin:0; font: 14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color: var(--ink); }
+    .page { max-width: 850px; margin: 24px auto; padding: 28px 36px; background:#fff; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    header { display:flex; justify-content:space-between; align-items:flex-start; gap: 16px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+    h1 { font-size: 28px; margin: 0 0 4px; }
+    .title { color: var(--muted); font-weight:600; }
+    .contact a { color: var(--ink); text-decoration:none; }
+    .contact a:hover { text-decoration: underline; }
+    .row { display:flex; gap: 16px; }
+    .col { flex:1; min-width:0; }
+    section { margin-top: 18px; }
+    h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin: 0 0 8px; }
+    .pillwrap { display:flex; flex-wrap:wrap; gap:8px 10px; }
+    .pill { background:#f2f6fb; color:#0b417a; padding:4px 8px; border-radius: 6px; font-size: 12px; }
+    ul { margin: 6px 0 0 18px; }
+    li { margin: 3px 0; }
+    .job { margin-bottom: 12px; }
+    .jobhead { display:flex; justify-content:space-between; gap: 8px; font-weight:600; }
+    .meta { color: var(--muted); font-weight: 500; }
+    .tech { margin-top: 6px; color: var(--muted); font-size:12px; }
+    .linklist { display:flex; flex-wrap:wrap; gap: 8px 12px; }
+    .linklist a { color: var(--accent); text-decoration:none; }
+    .linklist a:hover { text-decoration: underline; }
+    @media print { body { background:#fff; } .page { box-shadow:none; margin:0; width:8.5in; min-height:11in; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <h1>{{ resume.person.name }}</h1>
+        <div class="title">{{ resume.person.title }}</div>
+      </div>
+      <div class="contact">
+        {% set contacts = [] %}
+        {% if resume.person.location %}{% set contacts = contacts|merge([resume.person.location]) %}{% endif %}
+        {% if resume.person.email %}{% set contacts = contacts|merge(["<a href='mailto:" ~ resume.person.email ~ "'>" ~ resume.person.email ~ "</a>"]) %}{% endif %}
+        {% if resume.person.phone %}{% set contacts = contacts|merge([resume.person.phone]) %}{% endif %}
+        {% if resume.person.website %}{% set contacts = contacts|merge(["<a href='" ~ resume.person.website ~ "' target='_blank'>Website</a>"]) %}{% endif %}
+        {% if resume.person.github %}{% set contacts = contacts|merge(["<a href='" ~ resume.person.github ~ "' target='_blank'>GitHub</a>"]) %}{% endif %}
+        {% if resume.person.linkedin %}{% set contacts = contacts|merge(["<a href='" ~ resume.person.linkedin ~ "' target='_blank'>LinkedIn</a>"]) %}{% endif %}
+        <div>{{ contacts|join(' · ')|raw }}</div>
+      </div>
+    </header>
+
+    {% if resume.summary and resume.summary|length %}
+    <section>
+      <h2>Summary</h2>
+      {% for p in resume.summary %}
+        <p>{{ p }}</p>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if resume.skills and resume.skills|length %}
+    <section>
+      <h2>Skills</h2>
+      <div class="row">
+        {% for group in resume.skills %}
+          <div class="col">
+            <strong>{{ group.category }}</strong>
+            <div class="pillwrap">
+              {% for s in group.items %}
+                <span class="pill">{{ s }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if resume.experience and resume.experience|length %}
+    <section>
+      <h2>Experience</h2>
+      {% for job in resume.experience %}
+        <div class="job">
+          <div class="jobhead">
+            <div>{{ job.role }} · <span class="meta">{{ job.company }}{% if job.location %} — {{ job.location }}{% endif %}</span></div>
+            <div class="meta">{{ job.start_date }} — {{ job.end_date }}</div>
+          </div>
+          {% if job.bullets and job.bullets|length %}
+          <ul>
+            {% for b in job.bullets %}
+              <li>{{ b }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {% if job.tech and job.tech|length %}
+          <div class="tech">Tech: {{ job.tech|join(', ') }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if resume.projects and resume.projects|length %}
+    <section>
+      <h2>Projects</h2>
+      {% for pr in resume.projects %}
+        <div class="job">
+          <div class="jobhead">
+            <div>
+              <strong>{{ pr.name }}</strong>
+              {% if pr.url %} · <span class="meta"><a href="{{ pr.url }}" target="_blank">{{ pr.url }}</a></span>{% endif %}
+            </div>
+          </div>
+          {% if pr.description %}<p>{{ pr.description }}</p>{% endif %}
+          {% if pr.bullets and pr.bullets|length %}
+          <ul>
+            {% for b in pr.bullets %}
+              <li>{{ b }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {% if pr.tech and pr.tech|length %}
+          <div class="tech">Tech: {{ pr.tech|join(', ') }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if resume.education and resume.education|length %}
+    <section>
+      <h2>Education</h2>
+      {% for ed in resume.education %}
+        <div class="job">
+          <div class="jobhead">
+            <div>{{ ed.degree }} · <span class="meta">{{ ed.school }}{% if ed.location %} — {{ ed.location }}{% endif %}</span></div>
+            <div class="meta">{{ ed.start_date }} — {{ ed.end_date }}</div>
+          </div>
+          {% if ed.details and ed.details|length %}
+          <ul>
+            {% for d in ed.details %}
+              <li>{{ d }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if resume.links and resume.links|length %}
+    <section>
+      <h2>Links</h2>
+      <div class="linklist">
+        {% for link in resume.links %}
+          <a href="{{ link.url }}" target="_blank">{{ link.label }}</a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "version": 1,
+    "generated_at": "2025-11-06T00:00:00Z",
+    "template": "default"
+  },
+  "person": {
+    "name": "Rishi Satsangi",
+    "title": "Software Engineer",
+    "location": "City, ST",
+    "email": "rishi@example.com",
+    "phone": "(555) 555-5555",
+    "website": "https://rishisatsangi.example",
+    "linkedin": "https://www.linkedin.com/in/rishisatsangi",
+    "github": "https://github.com/rishisatsangi"
+  },
+  "summary": [
+    "Versatile software engineer with experience building scalable web applications and APIs. Passionate about clean architecture, DX, and shipping customer value.",
+    "Looking to apply skills in a role focused on impactful product work and technical leadership."
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "items": ["TypeScript", "JavaScript", "PHP", "Python"]
+    },
+    {
+      "category": "Frameworks",
+      "items": ["React", "Node.js", "Slim", "Express", "Next.js"]
+    },
+    {
+      "category": "Databases",
+      "items": ["PostgreSQL", "MySQL", "SQLite", "Redis"]
+    },
+    {
+      "category": "Tools",
+      "items": ["Docker", "GitHub Actions", "AWS", "Linux"]
+    }
+  ],
+  "experience": [
+    {
+      "company": "Company A",
+      "role": "Senior Software Engineer",
+      "location": "Remote",
+      "start_date": "2022-01",
+      "end_date": "Present",
+      "bullets": [
+        "Led development of a React + Node platform used by 50k+ users.",
+        "Designed and implemented service boundaries and CI/CD workflows.",
+        "Mentored engineers and established code quality standards."
+      ],
+      "tech": ["React", "Node.js", "TypeScript", "PostgreSQL", "AWS"]
+    },
+    {
+      "company": "Company B",
+      "role": "Software Engineer",
+      "location": "City, ST",
+      "start_date": "2019-05",
+      "end_date": "2021-12",
+      "bullets": [
+        "Built internal tooling that reduced deployment time by 60%.",
+        "Created REST APIs consumed by multiple front-end applications."
+      ],
+      "tech": ["PHP", "Slim", "MySQL", "Redis"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Resume Generator",
+      "url": "https://github.com/yourname/resume",
+      "description": "A configurable resume generation tool using Slim, Twig, and React.",
+      "bullets": [
+        "Supports multiple templates and one-click PDF export.",
+        "Drag-and-drop section ordering with live preview."
+      ],
+      "tech": ["PHP", "Slim", "Twig", "React", "SQLite"]
+    }
+  ],
+  "education": [
+    {
+      "school": "University Name",
+      "degree": "B.S. Computer Science",
+      "location": "City, ST",
+      "start_date": "2014",
+      "end_date": "2018",
+      "details": ["Cum Laude", "Relevant coursework: Algorithms, Databases, Distributed Systems"]
+    }
+  ],
+  "links": [
+    { "label": "Website", "url": "https://rishisatsangi.example" },
+    { "label": "GitHub", "url": "https://github.com/rishisatsangi" },
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/rishisatsangi" }
+  ]
+}

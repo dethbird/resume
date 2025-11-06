@@ -63,5 +63,26 @@ $app->get('/api/health', function (Request $request, Response $response, $args) 
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+$app->get('/resume', function (Request $request, Response $response, $args) use ($container) {
+    $jsonPath = __DIR__ . '/../data/sample_resume.json';
+    $data = [];
+    if (is_file($jsonPath)) {
+        $json = file_get_contents($jsonPath);
+        $decoded = json_decode($json, true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            $data = $decoded;
+        }
+    }
+
+    /** @var Twig\Environment $twig */
+    $twig = $container->get('twig');
+    $html = $twig->render('resume.twig', [
+        'resume' => $data,
+    ]);
+
+    $response->getBody()->write($html);
+    return $response;
+});
+
 $app->run();
 
