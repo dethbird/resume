@@ -1,0 +1,23 @@
+# Slim 4 front controller routing for Apache
+# Place this in your public/ (DocumentRoot) directory
+
+<IfModule mod_rewrite.c>
+    Options -MultiViews
+    RewriteEngine On
+
+    # Adjust RewriteBase if your app lives in a subdirectory (e.g., /resume)
+    # RewriteBase /
+
+    # Serve existing files/directories directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Otherwise, route everything to index.php
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Fallback for environments without mod_rewrite (Apache 2.4+)
+<IfModule !mod_rewrite.c>
+    FallbackResource /index.php
+</IfModule>
